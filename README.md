@@ -1,19 +1,22 @@
+# 🛍️ Ecommerce Practice Project
 
----
+🚀 **A fully responsive eCommerce website** built using **React.js**. This project is a practice exercise to enhance my front-end development skills with authentication, filtering, and modern UI features.
 
-### **2️⃣ Save the File**  
-- Click **File > Save As**  
-- Set the file name to **README.md**  
-- Select **All Files** as the file type  
-- Click **Save**  
+## 📌 Features  
+✅ **User Authentication** – Secure login/signup with **Clerk Authentication**  
+✅ **Product Filtering** – Sort by **Rating, Price, Stock Availability**  
+✅ **Search Functionality** – Find products by name instantly  
+✅ **Modern UI & Smooth Animations** – Interactive and engaging design  
+✅ **Responsive Design** – Fully optimized for all devices  
 
----
+## 🛠️ Tech Stack  
+- **Frontend:** React.js, Tailwind CSS  
+- **Authentication:** Clerk  
+- **State Management:** useState, useEffect  
 
-### **3️⃣ Upload README.md to GitHub**  
-1. Go to your **GitHub repository**:  
-   🔗 [https://github.com/hasnain23233/ecommerce-practice](https://github.com/hasnain23233/ecommerce-practice)  
-2. Click on **"Add file" > "Upload files"**  
-3. Drag and drop your `README.md` file  
-4. Click **"Commit changes"**  
+## 📦 Installation & Setup  
+Follow these steps to run the project locally:  
 
-🎉 **Done!** Now your repository will display the README content directly on GitHub! 🚀🔥
+1️⃣ **Clone the repository**  
+```bash
+git clone https://github.com/hasnain23233/ecommerce-practice.git
