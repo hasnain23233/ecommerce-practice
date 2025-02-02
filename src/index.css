@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.BigSa {
+  background-image: url('./assets/img/beeg.jpg');
+  background-size: cover;
+  background-position: right;
+}
