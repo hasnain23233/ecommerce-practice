@@ -5,6 +5,8 @@ import Product from './Components/Product'
 import Service from './Components/Service'
 import Contact from './Components/Contact'
 import Footer from './Footer'
+import CartDrawer from './Components/CartDrawer'
+import { CheckoutSuccess, CheckoutCancel } from './Components/CheckoutResult'
 import { Routes, Route } from 'react-router-dom'
 
 const FullWebsite = () => {
@@ -17,7 +19,10 @@ const FullWebsite = () => {
                     <Route path='product' element={<Product />} />
                     <Route path='service' element={<Service />} />
                     <Route path='contact' element={<Contact />} />
+                    <Route path='success' element={<CheckoutSuccess />} />
+                    <Route path='cancel' element={<CheckoutCancel />} />
                 </Routes>
+                <CartDrawer />
                 <Footer />
             </Suspense>
         </div>

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Video from '../img/Pro.mp4'
 import CreateContext from '../Context/CreatContext'
 import ProductDetails from '../Components/ProductDetails'
+import { useCart } from '../Context/CartContext'
 
 const Product = () => {
     const FetchingData = useContext(CreateContext)
@@ -10,6 +11,7 @@ const Product = () => {
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [searchQuery, setSearchQuery] = useState('')
     const [filter, setFilter] = useState('')
+    const { addToCart } = useCart()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -102,6 +104,7 @@ const Product = () => {
                                 <img className='w-8/12 m-auto mt-4 h-3/6 rounded-full' src={item.image} alt="" />
                                 <p className='font-bold text-xl mt-3'>${item.price}</p>
                                 <button onClick={() => showProductDetails(item.id)} className='p-2 w-10/12 border rounded bg-pink-700 text-white'>More Details</button>
+                                <button onClick={() => addToCart(item)} className='p-2 w-10/12 border rounded mt-2 border-pink-700 text-pink-700 font-semibold hover:bg-pink-700 hover:text-white transition'>Add to Cart 🛒</button>
                             </div>
                         )
                     })}

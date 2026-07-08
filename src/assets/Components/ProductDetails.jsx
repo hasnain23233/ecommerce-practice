@@ -2,7 +2,10 @@ import React from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 
+import { useCart } from '../Context/CartContext'
+
 const ProductDetails = ({ product, onClose }) => {
+    const { addToCart } = useCart()
     return (
         <div className={`fixed top-0 right-0 h-full overflow-auto w-1/3 bg-white shadow-lg p-4 border-l transition-transform z-50 transform ${product ? 'translate-x-0' : 'translate-x-full'}`}>
             <button onClick={onClose} className='absolute top-4 right-4 text-gray-500'>Close</button>
@@ -16,7 +19,7 @@ const ProductDetails = ({ product, onClose }) => {
                         <p>{product.rating.count}<FontAwesomeIcon icon={faShoppingCart} /></p>
                     </div>
                     <p className='font-bold text-xl mt-3 text-pink-700'>${product.price}</p>
-                    <button className='p-2 w-10/12 border rounded bg-pink-700 text-white mt-10'>Buy Now</button>
+                    <button onClick={() => { addToCart(product); onClose() }} className='p-2 w-10/12 border rounded bg-pink-700 text-white mt-10'>Add to Cart 🛒</button>
                 </>
             )}
         </div>
