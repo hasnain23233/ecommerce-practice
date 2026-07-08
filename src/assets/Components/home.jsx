@@ -67,68 +67,152 @@ const home = () => {
         return data.filter(item => item.category === category)
     }
 
+    const renderCategory = (label, eyebrow, category) => (
+        <div className='mb-20'>
+            <div className='flex items-end justify-between border-b-2 border-dashed border-gray-300 pb-3 mb-8'>
+                <div>
+                    <span className='text-xs tracking-[0.3em] uppercase text-pink-700 font-bold'>{eyebrow}</span>
+                    <h2 className='text-3xl font-black text-gray-900 uppercase tracking-tight'>{label}</h2>
+                </div>
+                <span className='hidden sm:block text-sm text-gray-400 font-medium'>{filterByCategory(category).length} items</span>
+            </div>
+            <Slider {...settings}>
+                {filterByCategory(category).map(item => (
+                    <div key={item.id} className='px-3'>
+                        <div className='group relative bg-white border border-gray-200 rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-pink-200'>
+                            <span className='absolute -top-2 -right-2 bg-pink-700 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md rotate-3 group-hover:rotate-0 transition-transform'>
+                                New
+                            </span>
+                            <div className='overflow-hidden rounded-xl bg-gray-50 h-40 flex items-center justify-center'>
+                                <img
+                                    className='h-full w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300'
+                                    src={item.image}
+                                    alt={item.title}
+                                />
+                            </div>
+                            <h1 className='line-clamp-1 mt-4 text-sm font-semibold text-gray-800'>{item.title}</h1>
+                            <p className='font-black text-2xl mt-1 text-gray-900'>${item.price}</p>
+                            <button
+                                onClick={() => showProductDetails(item.id)}
+                                className='mt-4 w-full py-2.5 rounded-lg bg-gray-900 text-white text-sm font-semibold tracking-wide transition-colors hover:bg-pink-700'
+                            >
+                                View details
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </Slider>
+        </div>
+    )
+
     return (
         <>
-            <div className='overflow-hidden h-screen'>
-                <video src={Video} className='w-full' autoPlay loop></video>
-                <div className='absolute top-1/2 left-1/2 transform -translate-x-2/2 -translate-y-1/2 text-white'>
-                    <h1 className='text-4xl font-bold leading-loose'>Welcome to ShopNexa</h1>
-                    <p className='text-lg'>ShopNexa is your go-to online shopping destination, offering a wide range of products at great prices. Whether you're looking for fashion, electronics, home essentials, or more, we make shopping easy and convenient.</p>
-                    <button className='bg-white text-black px-5 py-2 mt-5 rounded-full'>Get Started</button>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+            <style>{`
+                .font-display { font-family: 'Archivo Black', system-ui, sans-serif; }
+                body { font-family: 'Work Sans', system-ui, sans-serif; }
+                @keyframes marquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+                .marquee-track {
+                    animation: marquee 18s linear infinite;
+                    white-space: nowrap;
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .marquee-track { animation: none; }
+                }
+            `}</style>
+
+            {/* HERO */}
+            <div className='relative overflow-hidden h-screen'>
+                <video src={Video} className='w-full h-full object-cover' autoPlay loop muted playsInline></video>
+                <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10'></div>
+
+                <div className='absolute bottom-16 left-6 sm:left-12 right-6 sm:right-auto text-white max-w-xl'>
+                    <span className='inline-block bg-pink-700 text-white text-xs font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-full mb-5'>
+                        Est. ShopNexa
+                    </span>
+                    <h1 className='font-display text-4xl sm:text-6xl leading-[1.05] uppercase'>
+                        Shop the <span className='text-pink-500'>whole</span> thing
+                    </h1>
+                    <p className='text-base sm:text-lg text-gray-200 mt-5 leading-relaxed'>
+                        Fashion, electronics, and home essentials — curated, priced fairly,
+                        and shipped fast. This is the internet's clearance rack, minus the mess.
+                    </p>
+                    <button className='bg-white text-black px-7 py-3 mt-7 rounded-full font-bold text-sm uppercase tracking-wide transition-transform hover:scale-105 active:scale-95'>
+                        Get Started
+                    </button>
+                </div>
+
+                <div className='absolute bottom-6 right-6 hidden sm:flex items-center gap-2 text-white/60 text-xs uppercase tracking-widest'>
+                    <span className='w-6 h-px bg-white/60'></span> Scroll
                 </div>
             </div>
-            <div className='mt-10 w-10/12 m-auto text-center'>
-                <h2 className='text-2xl font-bold text-gray-800 py-4'>Men's Shirts</h2>
-                <Slider {...settings}>
-                    {filterByCategory("men's clothing").map(item => (
-                        <div key={item.id} className='p-4'>
-                            <div className='border cursor-pointer bg-gray-100 p-4 rounded-xl text-center hover:transform'>
-                                <h1 className='line-clamp-1'>{item.title}</h1>
-                                <img className='w-8/12 m-auto mt-4 h-3/6 rounded-full' src={item.image} alt="" />
-                                <p className='font-bold text-xl mt-3'>${item.price}</p>
-                                <button onClick={() => showProductDetails(item.id)} className='p-2 w-10/12 border rounded bg-pink-700 text-white'>More Details</button>
-                            </div>
-                        </div>
+
+            {/* MARQUEE TICKER */}
+            <div className='bg-gray-900 text-white overflow-hidden py-3 border-y-4 border-pink-700'>
+                <div className='marquee-track inline-block'>
+                    {Array(2).fill(0).map((_, i) => (
+                        <span key={i} className='mx-6 text-sm font-bold uppercase tracking-widest inline-flex items-center gap-6'>
+                            <span>✦ Friday Sale Live</span>
+                            <span>✦ Free Shipping Over $50</span>
+                            <span>✦ New Electronics Weekly</span>
+                            <span>✦ 50% Off Storewide</span>
+                        </span>
                     ))}
-                </Slider>
-                <br /><br />
-                <h2 className='text-2xl font-bold text-gray-800 py-4'>Women's Products</h2>
-                <Slider {...settings}>
-                    {filterByCategory("women's clothing").map(item => (
-                        <div key={item.id} className='p-4'>
-                            <div className='border cursor-pointer bg-gray-100 p-4 rounded-xl text-center hover:transform'>
-                                <h1 className='line-clamp-1'>{item.title}</h1>
-                                <img className='w-8/12 m-auto mt-4 h-3/6 rounded-full' src={item.image} alt="" />
-                                <p className='font-bold text-xl mt-3'>${item.price}</p>
-                                <button onClick={() => showProductDetails(item.id)} className='p-2 w-10/12 border rounded bg-pink-700 text-white'>More Details</button>
-                            </div>
-                        </div>
-                    ))}
-                </Slider>
-                <br /><br />
-                <h2 className='text-2xl font-bold text-gray-800 py-4'>Electronics</h2>
-                <Slider {...settings}>
-                    {filterByCategory("electronics").map(item => (
-                        <div key={item.id} className='p-4'>
-                            <div className='border cursor-pointer h-3/6  bg-gray-100 p-4 overflow-hidden rounded-xl text-center hover:transform'>
-                                <h1 className='line-clamp-1'>{item.title}</h1>
-                                <img className='w-8/12 m-auto mt-4 h-3/6 rounded-full' src={item.image} alt="" />
-                                <p className='font-bold text-xl mt-3'>${item.price}</p>
-                                <button onClick={() => showProductDetails(item.id)} className='p-2 w-10/12 border rounded bg-pink-700 text-white'>More Details</button>
-                            </div>
-                        </div>
-                    ))}
-                </Slider>
+                </div>
+            </div>
+
+            {/* CATEGORIES */}
+            <div className='mt-16 w-11/12 max-w-6xl m-auto'>
+                {renderCategory("Men's Shirts", "Category 01", "men's clothing")}
+                {renderCategory("Women's Products", "Category 02", "women's clothing")}
+                {renderCategory("Electronics", "Category 03", "electronics")}
                 <ProductDetails product={selectedProduct} onClose={closeProductDetails} />
             </div>
-            <div className="BigSa h-screen mt-10 flex items-center justify-start">
-                <div className='w-10/12 m-auto text-white '>
-                    <h1 className='text-3xl font-bold leading-loose'>Hurray! Friday Sale is Here!</h1>
-                    <p className='text-xl leading-loose font-light'>Get 50% OFF on ALL Products! 🛍️Limited-Time Offer <br /> Shop Now Before It’s Gone! </p>
-                    <button className='p-2 w-2/12 border rounded-xl bg-white text-gray-900 mt-4 font-bold'>Shop Now</button>
+
+            {/* BIG SALE BANNER */}
+            <div className="BigSa relative h-screen mt-4 flex items-center overflow-hidden">
+                <div className='absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-950/60 to-transparent'></div>
+                <div className='relative w-11/12 max-w-6xl m-auto text-white'>
+                    <span className='inline-block text-xs font-bold uppercase tracking-[0.3em] text-pink-500 mb-4'>
+                        Limited time
+                    </span>
+                    <h1 className='font-display text-5xl sm:text-7xl uppercase leading-none'>
+                        Friday Sale <br /> is Here
+                    </h1>
+                    <p className='text-lg sm:text-xl text-gray-300 mt-6 max-w-md leading-relaxed'>
+                        50% off everything, storewide. No codes, no fine print — just fewer zeros at checkout.
+                    </p>
+                    <button className='mt-8 px-8 py-3.5 rounded-xl bg-pink-700 text-white font-bold uppercase tracking-wide text-sm transition-transform hover:scale-105 active:scale-95'>
+                        Shop Now
+                    </button>
                 </div>
             </div>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3318.176650728229!2d73.08699437412143!3d33.73024793466672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfc0804bbfbbe3%3A0xf2596a934964569e!2sGilgit-Baltistan%20House!5e0!3m2!1sen!2s!4v1738493959091!5m2!1sen!2s" className='w-full' height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            {/* MAP / VISIT US */}
+            <div className='w-11/12 max-w-6xl m-auto py-16'>
+                <div className='flex items-end justify-between border-b-2 border-dashed border-gray-300 pb-3 mb-8'>
+                    <div>
+                        <span className='text-xs tracking-[0.3em] uppercase text-pink-700 font-bold'>Find us</span>
+                        <h2 className='text-3xl font-black text-gray-900 uppercase tracking-tight'>Visit the Showroom</h2>
+                    </div>
+                </div>
+                <div className='rounded-2xl overflow-hidden shadow-xl border border-gray-200'>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3318.176650728229!2d73.08699437412143!3d33.73024793466672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfc0804bbfbbe3%3A0xf2596a934964569e!2sGilgit-Baltistan%20House!5e0!3m2!1sen!2s!4v1738493959091!5m2!1sen!2s"
+                        className='w-full'
+                        height="450"
+                        allowFullScreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="ShopNexa location"
+                    ></iframe>
+                </div>
+            </div>
         </>
     )
 }
